@@ -52,6 +52,7 @@ import streamlit as st
 from supabase import create_client, Client
 #import re
 def app():
+    st.image('WhatsApp Image 2024-09-15 at 21.03.35_1abce9cd.jpg', width=600)
 
     # Supabase credentials
     SUPABASE_URL = "https://giwgxenhaiqzymegceoo.supabase.co"
@@ -76,15 +77,13 @@ def app():
 
     with st.form(key='user_form'):
         name= st.text_input("Name:-",value=None,placeholder="Your Name...")
-        location= st.text_input("Name Of Place Where You Leave:-",value=None,placeholder="Your Location...")
+        location= st.text_input("Name Of Place Where You Live:-",value=None,placeholder="Your Location...")
         coupon_code= st.text_input("Coupon Code:-",value=None,placeholder="Your Coupan Code...")
-        mobile_number= st.text_input("Mobile Number:-",value=None,placeholder="Your Mobile Number...")
-        feedback= st.text_area("Feedback:-",value=None,placeholder="Your Feedback...")
+        mobile_number= st.number_input("Mobile Number:-",value=None,placeholder="Your Mobile Number...")
+        feedback= st.text_area("Feedback (About Our Shop):-",value=None,placeholder="Your Feedback...")
 
 
         # Validate form input (simple validation)
-        #def validate_mobile_number(number):
-        #    return bool(re.match(r'^\+?[1-9]\d{1,14}$', number))  # Basic E.164 format validation
 
 
         submit_button = st.form_submit_button(label='Submit')
@@ -96,5 +95,5 @@ def app():
 
             else:
                 st.error("Please fill in all fields.")
-
+    st.sidebar.markdown("⚙️Site Created By Siddhant....")
     # Display stored data (optional)
