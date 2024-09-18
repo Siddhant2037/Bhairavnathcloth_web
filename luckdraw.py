@@ -43,4 +43,6 @@ def app():
         st.markdown("🚨Please Fill The Above Information Properly")
 
     # Close the connection
+    conn.commit()
     conn.close()
+
