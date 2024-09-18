@@ -3,7 +3,7 @@ def app():
     st.image('WhatsApp Image 2024-09-15 at 21.03.35_1abce9cd.jpg', width=600)
 
     st.markdown("""
-                <a href="tel:+1234567890" target="_blank">
+                <a href="tel:+919850114367" target="_blank">
                     <button style="background-color:blue; border-radius:10px; padding:5px; border:black;">
                        📞Call Us
                     </button>
