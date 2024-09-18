@@ -3,6 +3,8 @@ from streamlit_lottie import st_lottie
 import json
 
 def app():
+    st.image('WhatsApp Image 2024-09-15 at 21.03.35_1abce9cd.jpg', width=600)
+
     st.title("✨Click Below Button To Visit Saree Section")
     st.markdown("""
     <style>
