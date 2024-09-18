@@ -50,50 +50,51 @@
 
 import streamlit as st
 from supabase import create_client, Client
-import re
+#import re
+def app():
 
-# Supabase credentials
-SUPABASE_URL = "https://giwgxenhaiqzymegceoo.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdpd2d4ZW5oYWlxenltZWdjZW9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjY2NjM5MzIsImV4cCI6MjA0MjIzOTkzMn0.EPLvdofai5VjkB5AJ4QvNtWzdMS7ujqXXf6TKQAuW3o"
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-
-
-# Function to add data to Supabase
-def insert_data(name, location, coupon_code, mobile_number, feedback):
-    response = supabase.table("user_data").insert({
-        "name": name,
-        "location": location,
-        "coupon_code": coupon_code,
-        "mobile_number": mobile_number,
-        "feedback": feedback
-    }).execute()
-    return response
+    # Supabase credentials
+    SUPABASE_URL = "https://giwgxenhaiqzymegceoo.supabase.co"
+    SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdpd2d4ZW5oYWlxenltZWdjZW9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjY2NjM5MzIsImV4cCI6MjA0MjIzOTkzMn0.EPLvdofai5VjkB5AJ4QvNtWzdMS7ujqXXf6TKQAuW3o"
+    supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 
-# Streamlit form
-st.title("🎁Apply For Luckydraw")
-
-with st.form(key='user_form'):
-    name= st.text_input("Name",value=None)
-    location= st.text_input("Location",value=None)
-    coupon_code= st.text_input("Coupon Code",value=None)
-    mobile_number= st.text_input("Mobile Number",value=None)
-    feedback= st.text_area("Feedback",value=None)
-
-
-    # Validate form input (simple validation)
-    #def validate_mobile_number(number):
-    #    return bool(re.match(r'^\+?[1-9]\d{1,14}$', number))  # Basic E.164 format validation
+    # Function to add data to Supabase
+    def insert_data(name, location, coupon_code, mobile_number, feedback):
+        response = supabase.table("user_data").insert({
+            "name": name,
+            "location": location,
+            "coupon_code": coupon_code,
+            "mobile_number": mobile_number,
+            "feedback": feedback
+        }).execute()
+        return response
 
 
-    submit_button = st.form_submit_button(label='Submit')
+    # Streamlit form
+    st.title("🎁Apply For Luckydraw")
 
-    if submit_button:
-        if name and location and coupon_code and feedback:
-            response = insert_data(name, location, coupon_code, mobile_number, feedback)
-            st.markdown("✅Your Data Is Collected Securely")
+    with st.form(key='user_form'):
+        name= st.text_input("Name:-",value=None,placeholder="Your Name...")
+        location= st.text_input("Name Of Place Where You Leave:-",value=None,placeholder="Your Location...")
+        coupon_code= st.text_input("Coupon Code:-",value=None,placeholder="Your Coupan Code...")
+        mobile_number= st.text_input("Mobile Number:-",value=None,placeholder="Your Mobile Number...")
+        feedback= st.text_area("Feedback:-",value=None,placeholder="Your Feedback...")
 
-        else:
-            st.error("Please fill in all fields.")
 
-# Display stored data (optional)
+        # Validate form input (simple validation)
+        #def validate_mobile_number(number):
+        #    return bool(re.match(r'^\+?[1-9]\d{1,14}$', number))  # Basic E.164 format validation
+
+
+        submit_button = st.form_submit_button(label='Submit')
+
+        if submit_button:
+            if name and location and coupon_code and feedback:
+                response = insert_data(name, location, coupon_code, mobile_number, feedback)
+                st.markdown("✅Your Data Is Collected Securely")
+
+            else:
+                st.error("Please fill in all fields.")
+
+    # Display stored data (optional)
