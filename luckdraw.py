@@ -3,6 +3,8 @@ import sqlite3
 
 def app():
     st.title("Comming soon....")
+    st.image('WhatsApp Image 2024-09-15 at 21.03.35_1abce9cd.jpg', width=600)
+
     # # Create/connect to SQLite database
     # conn = sqlite3.connect('data.db')
     # c = conn.cursor()
