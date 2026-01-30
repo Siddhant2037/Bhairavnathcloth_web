@@ -1,48 +1,47 @@
 import streamlit as st
-import sqlite3
+from supabase import create_client, Client
 
 def app():
-    st.image('WhatsApp Image 2024-09-15 at 21.03.35_1abce9cd.jpg', width=600)
-    st.title("Luckydraw Coming soon....")
-    # # Create/connect to SQLite database
-    # conn = sqlite3.connect('data.db')
-    # c = conn.cursor()
-    #
-    #
-    # # Function to create a table
-    # def create_table():
-    #     c.execute('''CREATE TABLE IF NOT EXISTS users
-    #                  (name TEXT, location TEXT, coupan TEXT, number INTEGER, feedback TEXT)''')
-    #
-    #
-    # # Function to insert data
-    # def insert_data(name, location, coupan, number, feedback):
-    #     c.execute("INSERT INTO users (name, location, coupan, number, feedback) VALUES (?, ?, ?, ?, ?)",
-    #               (name, location,coupan, number, feedback))
-    #     conn.commit()
-    #
-    #
-    # # Streamlit app to collect data
-    # st.title('🎁Application For Luckydraw')
-    #
-    # # Collect user inputs
-    # name = st.text_input('Enter your name:',value=None,placeholder=("Your Name..."))
-    # location = st.text_input('Enter your Location:',value=None,placeholder=("Your Location..."))
-    # coupan = st.text_input('Enter your coupan:',value=None,placeholder=("Your Coupan Code..."))
-    # number = st.number_input('Enter Your Mobile Number:',value=None,placeholder=("Your Number"))
-    # feedback = st.text_area('Please provide your feedback:')
-    # submit = st.button('Submit')
-    # # Submit button
-    # if name and location and coupan and number and feedback and submit:
-    # # Create table if it doesn't exist
-    #     create_table()
-    #
-    #     # Insert user data into database
-    #     insert_data(name, location,coupan, number, feedback)
-    #
-    #     st.success("✅Your Data Is Securely Collected")
-    # elif submit:
-    #     st.markdown("🚨Please Fill The Above Information Properly")
-    #
-    # # Close the connection
-    # conn.close()
+    #st.set_page_config(page_title="Lucky Draw", page_icon="🎁")
+    #st.header("Lucky Draw")
+    st.title("🎁 LuckyDraw")
+
+    # Supabase connection
+    supabase: Client = create_client(
+        st.secrets["SUPABASE_URL"],
+        st.secrets["SUPABASE_KEY"]
+    )
+
+    st.title("🎁 Application For Lucky Draw")
+
+    # ---- Form ----
+    with st.form("luckydraw_form"):
+        name = st.text_input("Enter your name", placeholder="Your Name...")
+        location = st.text_input("Enter your location", placeholder="Your Location...")
+        coupon = st.text_input("Enter your coupon code", placeholder="Your Coupon Code...")
+        mobile = st.text_input("Enter your mobile number", placeholder="Your Mobile Number...")
+        feedback = st.text_area("Please provide your feedback")
+
+        submit = st.form_submit_button("Submit")
+
+    # ---- Handle Submit ----
+    if submit:
+        if not all([name, location, coupon, mobile, feedback]):
+            st.error("🚨 Please fill all the fields")
+            return
+
+        supabase.table("Lucky Draw").insert({
+            "name": name,
+            "location": location,
+            "coupon": coupon,
+            "mobile": mobile,
+            "feedback": feedback
+        }).execute()
+
+        st.success("✅ Your data is securely collected")
+        st.balloons()
+
+    st.sidebar.markdown("⚙️ Site Created By Siddhant")
+
+if __name__ == "__main__":
+    app()
